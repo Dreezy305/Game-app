@@ -17,3 +17,8 @@ export type itemProps = {
   selected: string;
   setSelected: any;
 };
+
+export type HeaderProps = {
+  title: string;
+  subtitle: string;
+};
