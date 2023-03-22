@@ -12,7 +12,7 @@ import React, { useContext } from "react";
 import { useProSidebar } from "react-pro-sidebar";
 import { ColorModeContext, tokens } from "../../theme";
 
-function Topbar() {
+function Topbar(): JSX.Element {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);

@@ -30,7 +30,7 @@ const Item = ({ title, to, icon, selected, setSelected }: itemProps) => {
   );
 };
 
-function MaterialSideBar() {
+function MaterialSideBar(): JSX.Element {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [select, setSelect] = useState("Dashboard");

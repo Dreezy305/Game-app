@@ -25,21 +25,3 @@ body,
 ::-webkit-scrollbar-track:hover {
   background: #555;
 }
-
-/* .pro-sidebar-inner,
-.ps-menu-root,
-.ps-sidebar-root .css-1wvake5,
-.css-1wvake5,
-.css-dip3t8 {
-  background: #434957 !important;
-} */
-.pro-icon-wrapper {
-  background: transparent !important;
-}
-.pro-inner-wrapper {
-  padding: 5px 35px 5px 20px !important;
-}
-
-.ps-menuitem-root:hover .css-16jkw2k:hover {
-  background: #434957 !important;
-}

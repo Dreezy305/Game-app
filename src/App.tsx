@@ -1,8 +1,10 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/dashboard/dashboard";
+import Games from "./pages/games/games";
 import { SideBarProvider } from "./pages/global/sidebar/SidebarContext";
 import Topbar from "./pages/global/Topbar";
+import Users from "./pages/users/users";
 import { ColorModeContext, useMode } from "./theme";
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
               <Topbar />
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/users" element={<Users />} />
+                <Route path="/games" element={<Games />} />
               </Routes>
             </main>
           </div>
