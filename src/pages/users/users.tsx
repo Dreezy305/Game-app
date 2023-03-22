@@ -11,5 +11,5 @@ import { tokens } from "../../theme";
 export default function Users() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  return <Box>users</Box>;
+  return <Box m={"20px"}>users</Box>;
 }
