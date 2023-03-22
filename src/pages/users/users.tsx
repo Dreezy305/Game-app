@@ -5,10 +5,11 @@ import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import React from "react";
+import Header from "../../components/Header";
 import { tokens } from "../../theme";
 
 export default function Users() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  return <div>users</div>;
+  return <Box>users</Box>;
 }
