@@ -1,55 +1,196 @@
-import Backdrop from "@mui/material/Backdrop";
-import Box from "@mui/material/Box";
-import Fade from "@mui/material/Fade";
-import Modal from "@mui/material/Modal";
-import { useTheme } from "@mui/material/styles";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import CloseIcon from "@mui/icons-material/Close";
+import { Button, TextField } from "@mui/material";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import IconButton from "@mui/material/IconButton";
+import { styled, useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
+import { Formik } from "formik";
 import React from "react";
+import { useEditUser } from "../hooks/users";
 import { tokens } from "../theme";
-import { DialogProps } from "../utils/interfaces";
+import { DialogProps, userEditPayload } from "../utils/interfaces";
+import { checkoutSchema } from "../utils/schemaValidation";
 
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-};
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  "& .MuiDialogContent-root": {
+    padding: theme.spacing(2),
+  },
+  "& .MuiDialogActions-root": {
+    padding: theme.spacing(1),
+  },
+}));
 
-function Edit({ handleClose, open }: DialogProps): JSX.Element {
+export interface DialogTitleProps {
+  id: string;
+  children?: React.ReactNode;
+  onClose: () => void;
+}
+
+function BootstrapDialogTitle(props: DialogTitleProps) {
+  const { children, onClose, ...other } = props;
+
+  return (
+    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+      {children}
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: "absolute",
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </DialogTitle>
+  );
+}
+
+function Edit({
+  open,
+  handleClose,
+  title,
+  userObj,
+  refetch,
+}: DialogProps): JSX.Element {
   // PICK COLORS
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  //   border: `1px solid #000`,
+  // STATE
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const { userEdit } = useEditUser(userObj?.id);
+
+  // SUBMIT FORM VALUES
+  const handleFormSubmit = async (values: any) => {
+    setLoading(true);
+    const payload: userEditPayload = {
+      name: values.name,
+      address: values.address,
+      email: values.email,
+      phoneNumber: values.phoneNumber,
+    };
+    try {
+      const response = await userEdit.mutateAsync(payload);
+      if (response.status === 200) {
+        setLoading(false);
+        handleClose();
+        refetch();
+      }
+    } catch (error) {
+      setLoading(false);
+      return error;
+    }
+    setLoading(false);
+  };
+  const initialValues = {
+    name: userObj?.name,
+    email: userObj?.email,
+    address: userObj?.address,
+    phoneNumber: userObj?.phoneNumber,
+  };
   return (
     <div>
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={open}
+      <BootstrapDialog
         onClose={handleClose}
-        closeAfterTransition
-        slots={{ backdrop: Backdrop }}
-        slotProps={{
-          backdrop: {
-            timeout: 500,
-          },
-        }}
+        aria-labelledby="customized-dialog-title"
+        open={open}
       >
-        <Fade in={open}>
-          <Box sx={{ ...style, border: `1px solid ${colors.blueAccent[500]}` }}>
-            <Typography id="transition-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
-          </Box>
-        </Fade>
-      </Modal>
+        <BootstrapDialogTitle
+          id="customized-dialog-title"
+          onClose={handleClose}
+        >
+          <Typography
+            variant="h3"
+            color={colors.grey[100]}
+            fontWeight="bold"
+            sx={{ mb: "5px" }}
+          >
+            {title}
+          </Typography>
+        </BootstrapDialogTitle>
+        <DialogContent dividers>
+          {/* USER FORM */}
+          <Formik
+            onSubmit={handleFormSubmit}
+            initialValues={initialValues}
+            validationSchema={checkoutSchema}
+          >
+            {({
+              values,
+              errors,
+              touched,
+              handleBlur,
+              handleChange,
+              handleSubmit,
+            }) => {
+              return (
+                <form onSubmit={handleSubmit}>
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    label="Name"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.name}
+                    name="name"
+                    sx={{ mb: "10px" }}
+                  />
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    label="Email"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.email}
+                    name="email"
+                    sx={{ mb: "10px" }}
+                  />
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    label="Address"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.address}
+                    name="address"
+                    sx={{ mb: "10px" }}
+                  />
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    label="Phone"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.phoneNumber}
+                    name="phoneNumber"
+                    sx={{ mb: "10px" }}
+                  />
+                  <DialogActions>
+                    <Button
+                      sx={{ backgroundColor: colors.greenAccent[700] }}
+                      type="submit"
+                    >
+                      Save changes
+                    </Button>
+                  </DialogActions>
+                </form>
+              );
+            }}
+          </Formik>
+        </DialogContent>
+      </BootstrapDialog>
     </div>
   );
 }

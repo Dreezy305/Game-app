@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "react-query";
 import { instance } from "../utils/instance";
+import { userEditPayload } from "../utils/interfaces";
 
 // FETCH USER DATA FROM SERVER
 export const fetchUsers = async () => {
@@ -40,4 +41,26 @@ export const useDeleteUserData = () => {
   );
 
   return { userDelete };
+};
+
+// EDIT USER DATA HOOK
+export const useEditUser = (id: any) => {
+  const userEdit = useMutation(
+    (userData: userEditPayload) => {
+      return instance({
+        url: `users/${id}`,
+        method: "PUT",
+        data: userData,
+      });
+    },
+    {
+      onSuccess: (data) => {
+        // toast.success(data?.data?.message);
+      },
+      onError: (error: any) => {
+        // toast.error(error?.response?.data);
+      },
+    }
+  );
+  return { userEdit };
 };

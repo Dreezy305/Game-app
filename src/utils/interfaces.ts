@@ -42,8 +42,17 @@ export interface paginationInterface {
 export type DialogProps = {
   open: boolean;
   handleClose: () => void;
-  title: string;
-  userName: string;
+  title?: string;
+  userName?: string;
   handleDelete?: () => void;
-  loading: boolean
+  loading: boolean;
+  userObj?: any;
+  refetch?: any;
 };
+
+export interface userEditPayload {
+  name: string;
+  email: string;
+  address: string;
+  phoneNumber: string;
+}

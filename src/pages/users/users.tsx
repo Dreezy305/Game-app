@@ -1,18 +1,19 @@
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
 import {
-    Avatar,
-    Box,
-    IconButton,
-    Stack,
-    Tooltip,
-    Typography,
-    useTheme
+  Avatar,
+  Box,
+  IconButton,
+  Stack,
+  Tooltip,
+  Typography,
+  useTheme,
 } from "@mui/material";
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 import React from "react";
 import DialogBox from "../../components/Dialog";
+import Edit from "../../components/Edit";
 import Header from "../../components/Header";
 import { useDeleteUserData, useFetchUsersData } from "../../hooks/users";
 import { tokens } from "../../theme";
@@ -26,9 +27,11 @@ export default function Users(): JSX.Element {
   // STATES
   const [loading, setLoading] = React.useState<boolean>(false);
   const [open, setOpen] = React.useState<boolean>(false);
+  const [isModal, setIsModal] = React.useState<boolean>(false);
   const [title, setTitle] = React.useState<string>("");
   const [userName, setUserName] = React.useState<string>("");
   const [id, setId] = React.useState<string>("");
+  const [userObj, setUserObj] = React.useState<any>({});
 
   // CALL USER HOOKS
   const { usersData, isLoading, refetch } = useFetchUsersData();
@@ -53,10 +56,17 @@ export default function Users(): JSX.Element {
   // DIALOG OPEN AND CLOSE
   const handleClickOpen = () => {
     setOpen(true);
+    setIsModal(false);
+  };
+
+  const handleClickEdit = () => {
+    setOpen(false);
+    setIsModal(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+    setIsModal(false);
   };
 
   // COLUMNS
@@ -93,7 +103,15 @@ export default function Users(): JSX.Element {
         return (
           <Stack direction="row">
             <Tooltip title={`Edit ${userName}`} arrow>
-              <IconButton>
+              <IconButton
+                onClick={() => {
+                  handleClickEdit();
+                  setTitle(`Edit ${userName} data`);
+                  setUserName(userName);
+                  setId(userId);
+                  setUserObj(params.row);
+                }}
+              >
                 <ModeOutlinedIcon />
               </IconButton>
             </Tooltip>
@@ -117,6 +135,14 @@ export default function Users(): JSX.Element {
   ];
   return (
     <React.Fragment>
+      <Edit
+        open={isModal}
+        handleClose={handleClose}
+        loading={loading}
+        title={title}
+        userObj={userObj}
+        refetch={refetch}
+      />
       <DialogBox
         open={open}
         handleClose={handleClose}
@@ -170,6 +196,7 @@ export default function Users(): JSX.Element {
             loading={isLoading}
             checkboxSelection
             autoPageSize
+            disableRowSelectionOnClick
           />
         </Box>
       </Box>
