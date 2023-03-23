@@ -1,5 +1,6 @@
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import {
   Avatar,
   Box,
@@ -102,6 +103,12 @@ export default function Users(): JSX.Element {
         const userId = params.row.id;
         return (
           <Stack direction="row">
+            <Tooltip title={`View ${userName}`} arrow>
+              <IconButton>
+                <VisibilityOutlinedIcon />
+              </IconButton>
+            </Tooltip>
+
             <Tooltip title={`Edit ${userName}`} arrow>
               <IconButton
                 onClick={() => {
