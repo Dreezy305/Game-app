@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import CloseIcon from "@mui/icons-material/Close";
-import { Button, TextField } from "@mui/material";
+import { Box, Button, CircularProgress, TextField } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -178,12 +178,27 @@ function Edit({
                     sx={{ mb: "10px" }}
                   />
                   <DialogActions>
-                    <Button
-                      sx={{ backgroundColor: colors.greenAccent[700] }}
-                      type="submit"
-                    >
-                      Save changes
-                    </Button>
+                    <Box sx={{ position: "relative" }}>
+                      <Button
+                        sx={{ backgroundColor: colors.greenAccent[700] }}
+                        type="submit"
+                      >
+                        Save changes
+                      </Button>
+                      {loading && (
+                        <CircularProgress
+                          size={24}
+                          sx={{
+                            color: colors.blueAccent[700],
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            marginTop: "-12px",
+                            marginLeft: "-12px",
+                          }}
+                        />
+                      )}
+                    </Box>
                   </DialogActions>
                 </form>
               );
