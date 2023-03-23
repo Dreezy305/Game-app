@@ -38,3 +38,12 @@ export interface paginationInterface {
   page: number;
   pageSize: number;
 }
+
+export type DialogProps = {
+  open: boolean;
+  handleClose: () => void;
+  title: string;
+  userName: string;
+  handleDelete?: () => void;
+  loading: boolean
+};
