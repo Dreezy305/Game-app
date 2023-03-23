@@ -1,10 +1,11 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/dashboard/dashboard";
+// import Home from "./pages/dashboard/dashboard";
 import Games from "./pages/games/games";
 import { SideBarProvider } from "./pages/global/sidebar/SidebarContext";
 import Topbar from "./pages/global/Topbar";
+import SingleUser from "./pages/users/overview/singleUser";
 import Users from "./pages/users/users";
 import { ColorModeContext, useMode } from "./theme";
 
@@ -21,9 +22,10 @@ function App() {
               <main>
                 <Topbar />
                 <Routes>
-                  <Route path="/" element={<Home />} />
+                  <Route path="/" element={<Users />} />
                   <Route path="/users" element={<Users />} />
                   <Route path="/games" element={<Games />} />
+                  <Route path="/users/:id" element={<SingleUser />} />
                 </Routes>
               </main>
             </div>

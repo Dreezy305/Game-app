@@ -13,6 +13,7 @@ import {
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import DialogBox from "../../components/Dialog";
 import Edit from "../../components/Edit";
 import Header from "../../components/Header";
@@ -24,6 +25,8 @@ export default function Users(): JSX.Element {
   // GET APP THEME
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  // NAVIGATION
+  const navigate = useNavigate();
 
   // STATES
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -101,10 +104,15 @@ export default function Users(): JSX.Element {
       renderCell: (params: GridRenderCellParams) => {
         const userName = params.row.name;
         const userId = params.row.id;
+        const data: userInterface = params.row;
         return (
           <Stack direction="row">
             <Tooltip title={`View ${userName}`} arrow>
-              <IconButton>
+              <IconButton
+                onClick={() => {
+                  navigate(`/users/${userId}`, { state: { ...data } });
+                }}
+              >
                 <VisibilityOutlinedIcon />
               </IconButton>
             </Tooltip>
@@ -125,6 +133,7 @@ export default function Users(): JSX.Element {
 
             <Tooltip title={`Delete ${userName}`} arrow>
               <IconButton
+                aria-label="delete"
                 onClick={() => {
                   handleClickOpen();
                   setTitle(`Delete ${userName}`);
