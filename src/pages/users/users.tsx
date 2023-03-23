@@ -1,10 +1,17 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
-import { Avatar, Box, Typography, useTheme } from "@mui/material";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
+import {
+  Avatar,
+  Box,
+  IconButton,
+  Stack,
+  Tooltip,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
-import React, { useState } from "react";
+import dayjs from "dayjs";
+import React from "react";
 import Header from "../../components/Header";
 import { useFetchUsersData } from "../../hooks/users";
 import { tokens } from "../../theme";
@@ -34,8 +41,38 @@ export default function Users() {
     { field: "email", headerName: "Email", width: 200 },
     { field: "address", headerName: "Address", width: 120 },
     { field: "phoneNumber", headerName: "Phone Number", width: 120 },
-    { field: "createdAt", headerName: "Date Created", width: 120 },
-    { field: "action", headerName: "Action", width: 200 },
+    {
+      field: "createdAt",
+      headerName: "Creation Date",
+      width: 120,
+      renderCell: (params: GridRenderCellParams) => {
+        const date = dayjs(params.row.createdAt).format("MM/DD/YYYY");
+        return <Typography>{date}</Typography>;
+      },
+    },
+    {
+      field: "action",
+      headerName: "Action",
+      width: 200,
+      renderCell: (params: GridRenderCellParams) => {
+        const userName = params.row.name;
+        return (
+          <Stack direction="row">
+            <Tooltip title={`Edit ${userName}`} arrow>
+              <IconButton>
+                <ModeOutlinedIcon />
+              </IconButton>
+            </Tooltip>
+
+            <Tooltip title={`Delete ${userName}`} arrow>
+              <IconButton>
+                <DeleteOutlinedIcon />
+              </IconButton>
+            </Tooltip>
+          </Stack>
+        );
+      },
+    },
   ];
   return (
     <Box m={"20px"}>
