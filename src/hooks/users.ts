@@ -7,6 +7,11 @@ export const fetchUsers = async () => {
   return await instance({ url: `/users`, method: "GET" });
 };
 
+// FETCH SINGLE USER DATA
+export const fetchUser = async (id: string) => {
+  return await instance({ url: `/users/${id}`, method: "GET" });
+};
+
 // FETCH USER DATA HOOK
 export const useFetchUsersData = () => {
   const { data, isLoading, isError, refetch, isFetching } = useQuery(
@@ -18,6 +23,19 @@ export const useFetchUsersData = () => {
   );
   const usersData = data;
   return { usersData, isLoading, isError, refetch, isFetching };
+};
+
+// FETCH SINGLE USER DATA HOOK
+export const useFetchUserData = (id: string) => {
+  const { data, isLoading, isError, refetch, isFetching } = useQuery(
+    ["single-user", id],
+    () => fetchUser(id),
+    {
+      onSuccess: (data) => {},
+    }
+  );
+  const userData = data;
+  return { userData, isLoading, isError, refetch, isFetching };
 };
 
 // DELETE USER DATA HOOK
