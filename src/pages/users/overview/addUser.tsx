@@ -7,7 +7,6 @@ import {
   MenuItem,
   TextField,
   useMediaQuery,
-  useTheme,
 } from "@mui/material";
 import Select from "@mui/material/Select";
 import { Field, Formik } from "formik";
@@ -15,13 +14,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../../components/Header";
 import { useAddUser } from "../../../hooks/users";
-import { tokens } from "../../../theme";
+
 import { addUserPayload } from "../../../utils/interfaces";
 import { userSchema } from "../../../utils/schemaValidation";
 
 function AddUser(): JSX.Element {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
   const { userCreate } = useAddUser();
   const isNonMobile = useMediaQuery("(min-width:600px)");
