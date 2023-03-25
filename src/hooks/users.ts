@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "react-query";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { instance } from "../utils/instance";
-import { userEditPayload } from "../utils/interfaces";
+import { addUserPayload, userEditPayload } from "../utils/interfaces";
 
 // FETCH USER DATA FROM SERVER
 export const fetchUsers = async (query: string) => {
@@ -62,7 +62,10 @@ export const useDeleteUserData = () => {
         });
       },
       onError: (error: any) => {
-        // toast.error(error?.response?.data?.message);
+        toast.error(`An error occured while deleting this user`, {
+          theme: "colored",
+          type: "error",
+        });
       },
     }
   );
@@ -88,7 +91,10 @@ export const useEditUser = (id: any) => {
         });
       },
       onError: (error: any) => {
-        // toast.error(error?.response?.data);
+        toast.error(`An error occured while updating this user`, {
+          theme: "colored",
+          type: "error",
+        });
       },
     }
   );
@@ -97,8 +103,8 @@ export const useEditUser = (id: any) => {
 
 // ADD NEW USER HOOK
 export const useAddUser = () => {
-  const userEdit = useMutation(
-    (userData: userEditPayload) => {
+  const userCreate = useMutation(
+    (userData: addUserPayload) => {
       return instance({
         url: `users`,
         method: "POST",
@@ -113,9 +119,12 @@ export const useAddUser = () => {
         });
       },
       onError: (error: any) => {
-        // toast.error(error?.response?.data);
+        toast.error(`There was an error while creating this user`, {
+          theme: "colored",
+          type: "error",
+        });
       },
     }
   );
-  return { userEdit };
+  return { userCreate };
 };

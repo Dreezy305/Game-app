@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Box,
   Button,
@@ -10,16 +9,21 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import { Field, Formik } from "formik";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../../../components/Header";
+import { useAddUser } from "../../../hooks/users";
 import { tokens } from "../../../theme";
+import { addUserPayload } from "../../../utils/interfaces";
 import { userSchema } from "../../../utils/schemaValidation";
 
 function AddUser(): JSX.Element {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const navigate = useNavigate();
+  const { userCreate } = useAddUser();
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const initialValues = {
     firstName: "",
@@ -27,10 +31,24 @@ function AddUser(): JSX.Element {
     email: "",
     contact: "",
     address1: "",
-    address2: "",
+    gender: "",
   };
-  const handleFormSubmit = (values: any) => {
-    console.log(values);
+  const handleFormSubmit = async (values: any) => {
+    const payload: addUserPayload = {
+      address: values.address1,
+      name: `${values.firstName} ${values.lastName}`,
+      email: values.email,
+      phoneNumber: values.contact,
+      gender: values.gender,
+    };
+    try {
+      const response = await userCreate.mutateAsync(payload);
+      if (response.status === 201) {
+        navigate("/users");
+      }
+    } catch (error) {
+      return error;
+    }
   };
   return (
     <Box m={"20px"}>
@@ -93,21 +111,26 @@ function AddUser(): JSX.Element {
                 sx={{ gridColumn: "span 2" }}
               />
               <FormControl variant="standard" sx={{ gridColumn: "span 4" }}>
-                {/* <InputLabel id="demo-simple-select-standard-label">
+                <InputLabel id="demo-simple-select-standard-label">
                   Gender
-                </InputLabel> */}
-                <Select
+                </InputLabel>
+                <Field
+                  as={Select}
                   labelId="demo-simple-select-standard-label"
                   id="demo-simple-select-standard"
-                  //   value={age}
                   onChange={handleChange}
                   label="Gender"
                   variant="filled"
+                  placeholder="Gender"
+                  name="gender"
+                  error={!!touched.gender && !!errors.gender}
+                  helperText={touched.gender && errors.gender}
                 >
-                  <MenuItem value={10}>Male</MenuItem>
-                  <MenuItem value={20}>Female</MenuItem>
-                  <MenuItem value={30}>Prefer not to say</MenuItem>
-                </Select>
+                  <MenuItem value={""}>Gender</MenuItem>
+                  <MenuItem value={"male"}>Male</MenuItem>
+                  <MenuItem value={"female"}>Female</MenuItem>
+                  <MenuItem value={"others"}>Prefer not to say</MenuItem>
+                </Field>
               </FormControl>
               <TextField
                 fullWidth
@@ -139,26 +162,13 @@ function AddUser(): JSX.Element {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Address 1"
+                label="Address"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.address1}
                 name="address1"
                 error={!!touched.address1 && !!errors.address1}
                 helperText={touched.address1 && errors.address1}
-                sx={{ gridColumn: "span 4" }}
-              />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Address 2"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.address2}
-                name="address2"
-                error={!!touched.address2 && !!errors.address2}
-                helperText={touched.address2 && errors.address2}
                 sx={{ gridColumn: "span 4" }}
               />
             </Box>

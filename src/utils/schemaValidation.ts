@@ -19,5 +19,5 @@ export const userSchema = yup.object().shape({
     .matches(phoneRegExp, "phone number is not valid!")
     .required("Required"),
   address1: yup.string().required("Required"),
-  address2: yup.string().required("Required"),
+  gender: yup.string().required("Required"),
 });
