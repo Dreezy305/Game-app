@@ -66,18 +66,10 @@ export default function Games(): JSX.Element {
   // COLUMNS
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90 },
-    {
-      field: "avatar",
-      headerName: "Image",
-      width: 110,
-      renderCell: (params: GridRenderCellParams) => {
-        return <Avatar alt="Remy Sharp" src={params.row.avatar} />;
-      },
-    },
     { field: "name", headerName: "Name", width: 200 },
-    { field: "email", headerName: "Email", width: 200 },
-    { field: "address", headerName: "Address", width: 120 },
-    { field: "phoneNumber", headerName: "Phone Number", width: 120 },
+    { field: "gameCategory", headerName: "Game Category", width: 200 },
+    { field: "scores", headerName: "Scores", width: 200 },
+    { field: "reviews", headerName: "Reviews", width: 200 },
     {
       field: "createdAt",
       headerName: "Creation Date",
