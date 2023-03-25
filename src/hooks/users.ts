@@ -6,13 +6,11 @@ import { userEditPayload } from "../utils/interfaces";
 
 // FETCH USER DATA FROM SERVER
 export const fetchUsers = async (query: string) => {
- 
   if (query === "") {
-      return await instance({ url: `/users`, method: "GET" });
+    return await instance({ url: `/users`, method: "GET" });
   } else {
-      return await instance({ url: `/users${query}`, method: "GET" });
+    return await instance({ url: `/users${query}`, method: "GET" });
   }
-
 };
 
 // FETCH SINGLE USER DATA
@@ -84,7 +82,32 @@ export const useEditUser = (id: any) => {
     },
     {
       onSuccess: (data) => {
-        toast.success(`${data?.data?.name} deleted successfully`, {
+        toast.success(`${data?.data?.name} edited successfully`, {
+          theme: "colored",
+          type: "success",
+        });
+      },
+      onError: (error: any) => {
+        // toast.error(error?.response?.data);
+      },
+    }
+  );
+  return { userEdit };
+};
+
+// ADD NEW USER HOOK
+export const useAddUser = () => {
+  const userEdit = useMutation(
+    (userData: userEditPayload) => {
+      return instance({
+        url: `users`,
+        method: "POST",
+        data: userData,
+      });
+    },
+    {
+      onSuccess: (data) => {
+        toast.success(`${data?.data?.name} added successfully`, {
           theme: "colored",
           type: "success",
         });

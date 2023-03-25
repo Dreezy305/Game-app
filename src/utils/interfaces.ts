@@ -61,3 +61,11 @@ export interface userFilterInterface {
   label: string;
   value: string;
 }
+
+export interface addUserPayload {
+  name: string;
+  email: string;
+  address: string;
+  phoneNumber: string;
+  gender: string;
+}

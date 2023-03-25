@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import Games from "./pages/games/games";
 import { SideBarProvider } from "./pages/global/sidebar/SidebarContext";
 import Topbar from "./pages/global/Topbar";
+import AddUser from "./pages/users/overview/addUser";
 import SingleUser from "./pages/users/overview/singleUser";
 import Users from "./pages/users/users";
 import { ColorModeContext, useMode } from "./theme";
@@ -27,6 +28,7 @@ function App() {
                   <Route path="/users" element={<Users />} />
                   <Route path="/games" element={<Games />} />
                   <Route path="/users/:id" element={<SingleUser />} />
+                  <Route path="/add-new-user" element={<AddUser />} />
                 </Routes>
               </main>
             </div>

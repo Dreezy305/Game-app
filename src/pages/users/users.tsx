@@ -278,10 +278,12 @@ export default function Users(): JSX.Element {
               <Button
                 variant="outlined"
                 startIcon={<PersonAddAlt1OutlinedIcon />}
-                onClick={() => {}}
+                onClick={() => {
+                  navigate("/add-new-user");
+                }}
                 color="success"
               >
-                Register User
+                Add New User
               </Button>
             </Box>
           </Stack>
