@@ -1,12 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, CircularProgress, TextField } from "@mui/material";
-import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
-import { styled, useTheme } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { Formik } from "formik";
 import React from "react";
@@ -14,15 +12,7 @@ import { useEditUser } from "../hooks/users";
 import { tokens } from "../theme";
 import { DialogProps, userEditPayload } from "../utils/interfaces";
 import { checkoutSchema } from "../utils/schemaValidation";
-
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiDialogContent-root": {
-    padding: theme.spacing(2),
-  },
-  "& .MuiDialogActions-root": {
-    padding: theme.spacing(1),
-  },
-}));
+import { BootstrapDialog } from "./Bootstrap";
 
 export interface DialogTitleProps {
   id: string;
