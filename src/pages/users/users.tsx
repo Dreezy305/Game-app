@@ -10,11 +10,8 @@ import {
   FormControl,
   IconButton,
   InputBase,
-  
   MenuItem,
-  
   Stack,
- 
   Tooltip,
   Typography,
   useTheme,
@@ -81,6 +78,8 @@ export default function Users(): JSX.Element {
   const [id, setId] = React.useState<string>("");
   const [userObj, setUserObj] = React.useState<any>({});
   const [value, setValue] = React.useState("");
+  const [query, setQuery] = React.useState<string>("");
+  const [text, setText] = React.useState<string>("");
 
   // SELECT CHANGE EVENT
   const handleChange = (event: SelectChangeEvent) => {
@@ -88,7 +87,7 @@ export default function Users(): JSX.Element {
   };
 
   // CALL USER HOOKS
-  const { usersData, isLoading, refetch } = useFetchUsersData();
+  const { usersData, isLoading, refetch } = useFetchUsersData(query);
   const { userDelete } = useDeleteUserData();
   const data: userInterface[] = usersData?.data;
 
@@ -242,6 +241,7 @@ export default function Users(): JSX.Element {
                 value={value}
                 onChange={handleChange}
                 input={<BootstrapInput />}
+                label="Select"
               >
                 <MenuItem value="name">Name</MenuItem>
                 <MenuItem value="email">Email</MenuItem>
@@ -253,6 +253,11 @@ export default function Users(): JSX.Element {
               <BootstrapInput
                 id="demo-customized-textbox"
                 placeholder="Search..."
+                value={text}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setText(event.target.value);
+                  setQuery(`?${value}=${event.target.value}`);
+                }}
               />
             </FormControl>
           </Stack>

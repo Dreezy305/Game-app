@@ -5,8 +5,14 @@ import { instance } from "../utils/instance";
 import { userEditPayload } from "../utils/interfaces";
 
 // FETCH USER DATA FROM SERVER
-export const fetchUsers = async () => {
-  return await instance({ url: `/users`, method: "GET" });
+export const fetchUsers = async (query: string) => {
+ 
+  if (query === "") {
+      return await instance({ url: `/users`, method: "GET" });
+  } else {
+      return await instance({ url: `/users${query}`, method: "GET" });
+  }
+
 };
 
 // FETCH SINGLE USER DATA
@@ -15,10 +21,10 @@ export const fetchUser = async (id: string) => {
 };
 
 // FETCH USER DATA HOOK
-export const useFetchUsersData = () => {
+export const useFetchUsersData = (query: string) => {
   const { data, isLoading, isError, refetch, isFetching } = useQuery(
-    ["users"],
-    () => fetchUsers(),
+    ["users", query],
+    () => fetchUsers(query),
     {
       onSuccess: (data) => {},
     }
