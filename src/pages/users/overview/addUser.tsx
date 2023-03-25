@@ -179,21 +179,14 @@ function AddUser(): JSX.Element {
               sx={{ position: "relative" }}
             >
               <Button type="submit" color="secondary" variant="contained">
-                Add New User
+                Add New User{" "}
+                {isSubmitting && (
+                  <>
+                    &nbsp; &nbsp;
+                    <CircularProgress size={13} />
+                  </>
+                )}
               </Button>
-              {isSubmitting && (
-                <CircularProgress
-                  size={24}
-                  sx={{
-                    color: colors.blueAccent[700],
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    marginTop: "-12px",
-                    marginLeft: "-12px",
-                  }}
-                />
-              )}
             </Box>
           </form>
         )}

@@ -247,6 +247,7 @@ export default function Users(): JSX.Element {
                 <MenuItem value="email">Email</MenuItem>
                 <MenuItem value="phoneNumber">Phone</MenuItem>
                 <MenuItem value="address">Address</MenuItem>
+                <MenuItem value="gender">Gender</MenuItem>
               </Select>
             </FormControl>
             <FormControl variant="standard">
