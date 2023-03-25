@@ -34,6 +34,17 @@ export interface userInterface {
   uniqueId?: string;
 }
 
+export interface GameInterface {
+  createdAt: string;
+  name: string;
+  gameCategory: string;
+  uniqueId: string;
+  scores: string;
+  ratings: string;
+  reviews: string;
+  id: string;
+}
+
 export interface paginationInterface {
   page: number;
   pageSize: number;

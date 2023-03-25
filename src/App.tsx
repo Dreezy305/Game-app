@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Games from "./pages/games/games";
 import AddGame from "./pages/games/overview/addGame";
+import SingleGame from "./pages/games/overview/singleGame";
 import { SideBarProvider } from "./pages/global/sidebar/SidebarContext";
 import Topbar from "./pages/global/Topbar";
 import AddUser from "./pages/users/overview/addUser";
@@ -29,6 +30,7 @@ function App() {
                   <Route path="/users" element={<Users />} />
                   <Route path="/games" element={<Games />} />
                   <Route path="/users/:id" element={<SingleUser />} />
+                  <Route path="/games/:id" element={<SingleGame />} />
                   <Route path="/add-new-user" element={<AddUser />} />
                   <Route path="/add-new-game" element={<AddGame />} />
                 </Routes>

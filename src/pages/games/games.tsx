@@ -25,7 +25,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { BootstrapInput } from "../../components/Bootstrap";
 import Header from "../../components/Header";
+import { useFetchGamesData } from "../../hooks/games";
 import { tokens } from "../../theme";
+import { GameInterface } from "../../utils/interfaces";
 
 export default function Games(): JSX.Element {
   // GET APP THEME
@@ -43,6 +45,9 @@ export default function Games(): JSX.Element {
   const [userObj, setUserObj] = React.useState<any>({});
   const [title, setTitle] = React.useState<string>("");
   const [userName, setUserName] = React.useState<string>("");
+
+  const { gamesData, isLoading, isError } = useFetchGamesData(query);
+  const data: GameInterface[] = gamesData?.data;
 
   const handleChange = (event: SelectChangeEvent) => {
     setValue(event.target.value as string);
@@ -67,9 +72,7 @@ export default function Games(): JSX.Element {
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90 },
     { field: "name", headerName: "Name", width: 200 },
-    { field: "gameCategory", headerName: "Game Category", width: 200 },
-    { field: "scores", headerName: "Scores", width: 200 },
-    { field: "reviews", headerName: "Reviews", width: 200 },
+    { field: "gameCategory", headerName: "Game Category", width: 120 },
     {
       field: "createdAt",
       headerName: "Creation Date",
@@ -79,6 +82,9 @@ export default function Games(): JSX.Element {
         return <Typography>{date}</Typography>;
       },
     },
+    { field: "scores", headerName: "Scores", width: 120 },
+    { field: "reviews", headerName: "Reviews", width: 120 },
+
     {
       field: "action",
       headerName: "Action",
@@ -92,7 +98,7 @@ export default function Games(): JSX.Element {
             <Tooltip title={`View ${userName}`} arrow>
               <IconButton
                 onClick={() => {
-                  navigate(`/users/${userId}`, { state: { ...data } });
+                  navigate(`/games/${userId}`, { state: { ...data } });
                 }}
               >
                 <VisibilityOutlinedIcon />
@@ -239,9 +245,9 @@ export default function Games(): JSX.Element {
         height="80vh"
       >
         <DataGrid
-          rows={[]}
+          rows={data !== undefined ? data : []}
           columns={columns}
-          loading={false}
+          loading={isLoading}
           checkboxSelection
           autoPageSize
           disableRowSelectionOnClick
