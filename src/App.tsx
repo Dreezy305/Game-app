@@ -2,6 +2,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Route, Routes } from "react-router-dom";
 // import Home from "./pages/dashboard/dashboard";
+import { ToastContainer } from "react-toastify";
 import Games from "./pages/games/games";
 import { SideBarProvider } from "./pages/global/sidebar/SidebarContext";
 import Topbar from "./pages/global/Topbar";
@@ -32,6 +33,7 @@ function App() {
           </SideBarProvider>
         </ThemeProvider>
       </ColorModeContext.Provider>
+      <ToastContainer />
     </QueryClientProvider>
   );
 }

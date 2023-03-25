@@ -1,4 +1,6 @@
 import { useMutation, useQuery } from "react-query";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { instance } from "../utils/instance";
 import { userEditPayload } from "../utils/interfaces";
 
@@ -50,7 +52,10 @@ export const useDeleteUserData = () => {
     },
     {
       onSuccess: (data) => {
-        // toast.success(data.data.success);
+        toast.success(`${data?.data?.name} deleted successfully`, {
+          theme: "colored",
+          type: "success",
+        });
       },
       onError: (error: any) => {
         // toast.error(error?.response?.data?.message);
@@ -73,7 +78,10 @@ export const useEditUser = (id: any) => {
     },
     {
       onSuccess: (data) => {
-        // toast.success(data?.data?.message);
+        toast.success(`${data?.data?.name} deleted successfully`, {
+          theme: "colored",
+          type: "success",
+        });
       },
       onError: (error: any) => {
         // toast.error(error?.response?.data);

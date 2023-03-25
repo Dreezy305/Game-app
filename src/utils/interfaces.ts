@@ -56,3 +56,8 @@ export interface userEditPayload {
   address: string;
   phoneNumber: string;
 }
+
+export interface userFilterInterface {
+  label: string;
+  value: string;
+}
