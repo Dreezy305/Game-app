@@ -159,6 +159,17 @@ function SingleGame(): JSX.Element {
             >
               <ListItemText primary={`Reviews`} />
             </ListItem>
+            <ListItem
+              key={5}
+              disableGutters
+              secondaryAction={
+                <Typography variant="h6">
+                  {gameData?.data?.duration} days
+                </Typography>
+              }
+            >
+              <ListItemText primary={`Duration`} />
+            </ListItem>
           </List>
         </CardContent>
       </Card>
