@@ -17,22 +17,26 @@ import {
 import dayjs from "dayjs";
 import React from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import Edit from "../../../components/Edit";
 import { useDeleteUserData, useFetchUserData } from "../../../hooks/users";
 import { tokens } from "../../../theme";
 
 function SingleUser(): JSX.Element {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const location: any = useLocation();
   const navigation = useNavigate();
   const param: any = useParams();
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+
+  const [isModal, setIsModal] = React.useState<boolean>(false);
+
   const locationObject = location.state;
 
   // STATE
   const [loading, setLoading] = React.useState<boolean>(false);
 
   // CUSTOM HOOKS CALL
-  const { userData } = useFetchUserData(param.id);
+  const { userData, refetch } = useFetchUserData(param.id);
   const { userDelete } = useDeleteUserData();
 
   const deleteUser = async () => {
@@ -49,8 +53,24 @@ function SingleUser(): JSX.Element {
     setLoading(false);
   };
 
+  const handleClose = () => {
+    setIsModal(false);
+  };
+
+  const handleClickOpen = () => {
+    setIsModal(true);
+  };
+
   return (
-    <>
+    <React.Fragment>
+      <Edit
+        open={isModal}
+        handleClose={handleClose}
+        loading={loading}
+        title={locationObject.name}
+        userObj={locationObject}
+        refetch={() => refetch()}
+      />
       <Box m={"20px"}>
         <Box
           display={"flex"}
@@ -76,6 +96,7 @@ function SingleUser(): JSX.Element {
               startIcon={<ModeOutlinedIcon />}
               color="primary"
               sx={{ backgroundColor: `${colors.blueAccent[700]} !important` }}
+              onClick={handleClickOpen}
             >
               Edit
             </Button>
@@ -217,7 +238,7 @@ function SingleUser(): JSX.Element {
           />
         </Card>
       </Box>
-    </>
+    </React.Fragment>
   );
 }
 

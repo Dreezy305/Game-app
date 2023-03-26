@@ -44,7 +44,7 @@ export default function Games(): JSX.Element {
   const [title, setTitle] = React.useState<string>("");
   const [userName, setUserName] = React.useState<string>("");
 
-  const { gamesData, isLoading, isError, refetch } = useFetchGamesData(query);
+  const { gamesData, isLoading, refetch } = useFetchGamesData(query);
   const { gameDelete } = useDeleteGameData();
   const data: GameInterface[] = gamesData?.data;
 
