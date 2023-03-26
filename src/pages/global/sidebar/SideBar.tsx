@@ -33,7 +33,7 @@ const Item = ({ title, to, icon, selected, setSelected }: itemProps) => {
 function MaterialSideBar(): JSX.Element {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [select, setSelect] = useState("Dashboard");
+  const [select, setSelect] = useState("Users");
   // const { sidebarRTL, setSidebarRTL, sidebarImage } = useSidebarContext();
   const { collapseSidebar, toggleSidebar, collapsed, broken } = useProSidebar();
   return (
@@ -172,13 +172,13 @@ function MaterialSideBar(): JSX.Element {
               selected={select}
               setSelected={setSelect}
             />
-            <Item
+            {/* <Item
               title="Game Configurations"
               to="/game-configurations"
               icon={<SettingsSuggestOutlinedIcon />}
               selected={select}
               setSelected={setSelect}
-            />
+            /> */}
           </Box>
         </Menu>
       </Sidebar>
