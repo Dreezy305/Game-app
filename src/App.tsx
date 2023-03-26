@@ -1,7 +1,8 @@
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { CircularProgress, CssBaseline, ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 // import Home from "./pages/dashboard/dashboard";
+import React, { Suspense } from "react";
 import { ToastContainer } from "react-toastify";
 import Games from "./pages/games/games";
 import AddGame from "./pages/games/overview/addGame";
@@ -25,18 +26,26 @@ function App() {
             <div style={{ height: "100%", width: "100%", overflow: "hidden" }}>
               <main>
                 <Topbar />
-                <Routes>
-                  <Route
-                    path="/"
-                    element={<Navigate to={"/users"} replace={true} />}
-                  />
-                  <Route path="/users" element={<Users />} />
-                  <Route path="/games" element={<Games />} />
-                  <Route path="/users/:id" element={<SingleUser />} />
-                  <Route path="/games/:id" element={<SingleGame />} />
-                  <Route path="/add-new-user" element={<AddUser />} />
-                  <Route path="/add-new-game" element={<AddGame />} />
-                </Routes>
+                <Suspense
+                  fallback={
+                    <div className="absoluteCenterY">
+                      <CircularProgress />
+                    </div>
+                  }
+                >
+                  <Routes>
+                    <Route
+                      path="/"
+                      element={<Navigate to={"/users"} replace={true} />}
+                    />
+                    <Route path="/users" element={<Users />} />
+                    <Route path="/games" element={<Games />} />
+                    <Route path="/users/:id" element={<SingleUser />} />
+                    <Route path="/games/:id" element={<SingleGame />} />
+                    <Route path="/add-new-user" element={<AddUser />} />
+                    <Route path="/add-new-game" element={<AddGame />} />
+                  </Routes>
+                </Suspense>
               </main>
             </div>
           </SideBarProvider>
