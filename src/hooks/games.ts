@@ -3,6 +3,7 @@ import { useMutation, useQuery } from "react-query";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { instance } from "../utils/instance";
+import { addGamePayload } from "../utils/interfaces";
 
 // FETCH GAME DATA FROM SERVER
 export const fetchGames = async (query: string) => {
@@ -71,4 +72,32 @@ export const useDeleteGameData = () => {
   );
 
   return { gameDelete };
+};
+
+// ADD NEW GAME HOOK
+export const useAddGame = () => {
+  const gameCreate = useMutation(
+    (gameData: addGamePayload) => {
+      return instance({
+        url: `games`,
+        method: "POST",
+        data: gameData,
+      });
+    },
+    {
+      onSuccess: (data) => {
+        toast.success(`${data?.data?.name} added successfully`, {
+          theme: "colored",
+          type: "success",
+        });
+      },
+      onError: (error: any) => {
+        toast.error(`There was an error while creating this game`, {
+          theme: "colored",
+          type: "error",
+        });
+      },
+    }
+  );
+  return { gameCreate };
 };

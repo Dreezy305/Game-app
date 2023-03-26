@@ -80,3 +80,10 @@ export interface addUserPayload {
   phoneNumber: string;
   gender: string;
 }
+
+export interface addGamePayload {
+  name: string;
+  gameCategory: string;
+  duration: string;
+  scores: string;
+}

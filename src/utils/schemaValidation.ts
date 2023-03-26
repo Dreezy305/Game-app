@@ -21,3 +21,10 @@ export const userSchema = yup.object().shape({
   address1: yup.string().required("Required"),
   gender: yup.string().required("Required"),
 });
+
+export const gameSchema = yup.object().shape({
+  name: yup.string().required("Required"),
+  gameCategory: yup.string().required("Required"),
+  scores: yup.string().required("Required"),
+  duration: yup.string().required("Required"),
+});

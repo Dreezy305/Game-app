@@ -1,16 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
+import GamesOutlinedIcon from "@mui/icons-material/GamesOutlined";
 import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
-import PersonAddAlt1OutlinedIcon from "@mui/icons-material/PersonAddAlt1Outlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import {
-  Avatar,
   Box,
   Button,
   FormControl,
   IconButton,
-  InputBase,
   MenuItem,
   Stack,
   Tooltip,
@@ -178,7 +176,6 @@ export default function Games(): JSX.Element {
           flexDirection={"row"}
           justifyContent={"space-between"}
           alignItems="baseline"
-          
         >
           {/* FILTERS */}
           <Stack direction={"row"} sx={{ mb: "20px" }}>
@@ -224,7 +221,7 @@ export default function Games(): JSX.Element {
             <Box>
               <Button
                 variant="outlined"
-                startIcon={<PersonAddAlt1OutlinedIcon />}
+                startIcon={<GamesOutlinedIcon />}
                 onClick={() => {
                   navigate("/add-new-game");
                 }}
