@@ -2,9 +2,9 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-This is a dashboard application that displays data from REST API. In this app, there are user and games menu. The user menu navigates to the user page where user data is dispayed on a table and vice versa. This application utilizes React, Typescript, Material UI (MUI), React Pro Sidebar Axios, React Query, Formik, and Dayjs libraries.
+This is a dashboard application that displays data from REST API. In this app, there are user and games menu. The user menu navigates to the user page where user data is dispayed on a table and vice versa.
 
-## Lbraries
+## LIBRARIES
 
 - Material UI
 - React Pro Sidebar
@@ -13,7 +13,7 @@ This is a dashboard application that displays data from REST API. In this app, t
 - Formik
 - Dayjs
 
-## Installation
+## INSTALLATION
 
 - Clone the repository to your local machine.
 - Open a terminal window in the project directory.
@@ -29,3 +29,9 @@ This is a dashboard application that displays data from REST API. In this app, t
 
 - The application was hosted via netlify cloud provider
 - LIVE URL is: https://games-app-yolo.netlify.app/
+
+## USAGE INSTRUCTIONS
+
+## CONTACT INFORMATION
+
+- If you have any questions or issues with the project, you can contact me at bankoleidris@gmail.com
