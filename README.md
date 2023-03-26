@@ -18,6 +18,14 @@ This is a dashboard application that displays data from REST API. In this app, t
 - Clone the repository to your local machine.
 - Open a terminal window in the project directory.
 - Run `npm install` to install the project dependencies.
-- Run the app using `npm start`
 
-- This application is hosted on netlify at https://games-app-yolo.netlify.app/
+## USAGE
+
+- Open a terminal window in the project directory.
+- Run `npm start` to start the application.
+- The application will be available at http://localhost:3000.
+
+## DEPLOYMENT
+
+- The application was hosted via netlify cloud provider
+- LIVE URL is: https://games-app-yolo.netlify.app/
