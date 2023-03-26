@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, CircularProgress, TextField } from "@mui/material";
 import DialogActions from "@mui/material/DialogActions";
