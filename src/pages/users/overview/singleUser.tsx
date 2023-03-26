@@ -67,7 +67,7 @@ function SingleUser(): JSX.Element {
         open={isModal}
         handleClose={handleClose}
         loading={loading}
-        title={locationObject.name}
+        title={`Edit ${locationObject.name} data`}
         userObj={locationObject}
         refetch={() => refetch()}
       />

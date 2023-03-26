@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, CircularProgress, TextField } from "@mui/material";
-import DialogActions from "@mui/material/DialogActions";
+
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
@@ -9,8 +8,9 @@ import { useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { Formik } from "formik";
 import React from "react";
+import { useEditGame } from "../hooks/games";
 import { tokens } from "../theme";
-import { DialogProps,  } from "../utils/interfaces";
+import { addGamePayload, DialogProps } from "../utils/interfaces";
 import { gameSchema } from "../utils/schemaValidation";
 import { BootstrapDialog } from "./Bootstrap";
 
@@ -54,16 +54,32 @@ function EditGame({
   // PICK COLORS
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  // STATE
-  const [loading, setLoading] = React.useState<boolean>(false);
 
-  const handleFormSubmit = async (values: any) => {};
+  const { gameEdit } = useEditGame(userObj?.id);
+
+  const handleFormSubmit = async (values: any) => {
+    const payload: addGamePayload = {
+      duration: values.duration,
+      gameCategory: values.gameCategory,
+      name: values.name,
+      scores: values.scores,
+    };
+    try {
+      const response = await gameEdit.mutateAsync(payload);
+      if (response.status === 200) {
+        handleClose();
+        refetch();
+      }
+    } catch (error) {
+      return error;
+    }
+  };
 
   const initialValues = {
     name: userObj?.name,
-    email: userObj?.email,
-    address: userObj?.address,
-    phoneNumber: userObj?.phoneNumber,
+    gameCategory: userObj?.gameCategory,
+    duration: userObj?.duration,
+    scores: userObj?.scores,
   };
 
   return (
@@ -101,79 +117,76 @@ function EditGame({
               handleBlur,
               handleChange,
               handleSubmit,
-            }) => {
-              return (
-                <form onSubmit={handleSubmit}>
-                  <TextField
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    label="Name"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.name}
-                    name="name"
-                    sx={{ mb: "10px" }}
-                  />
-                  <TextField
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    label="Email"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.email}
-                    name="email"
-                    sx={{ mb: "10px" }}
-                  />
-                  <TextField
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    label="Address"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.address}
-                    name="address"
-                    sx={{ mb: "10px" }}
-                  />
-                  <TextField
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    label="Phone"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.phoneNumber}
-                    name="phoneNumber"
-                    sx={{ mb: "10px" }}
-                  />
-                  <DialogActions>
-                    <Box sx={{ position: "relative" }}>
-                      <Button
-                        sx={{ backgroundColor: colors.greenAccent[700] }}
-                        type="submit"
-                      >
-                        Save changes
-                      </Button>
-                      {loading && (
-                        <CircularProgress
-                          size={24}
-                          sx={{
-                            color: colors.blueAccent[700],
-                            position: "absolute",
-                            top: "50%",
-                            left: "50%",
-                            marginTop: "-12px",
-                            marginLeft: "-12px",
-                          }}
-                        />
-                      )}
-                    </Box>
-                  </DialogActions>
-                </form>
-              );
-            }}
+              isSubmitting,
+            }) => (
+              <form onSubmit={handleSubmit}>
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Name"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.name}
+                  name="name"
+                  error={!!touched.name && !!errors.name}
+                  sx={{ gridColumn: "span 4", mb: "10px" }}
+                />
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Game Category"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.gameCategory}
+                  name="gameCategory"
+                  error={!!touched.gameCategory && !!errors.gameCategory}
+                  sx={{ gridColumn: "span 4", mb: "10px" }}
+                />
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="number"
+                  label="Duration"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.duration}
+                  name="duration"
+                  error={!!touched.duration && !!errors.duration}
+                  sx={{ gridColumn: "span 4", mb: "10px" }}
+                />
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="number"
+                  label="Scores"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.scores}
+                  name="scores"
+                  error={!!touched.scores && !!errors.scores}
+                  sx={{ gridColumn: "span 4" }}
+                />
+
+                <Box
+                  display="flex"
+                  justifyContent="end"
+                  mt="20px"
+                  sx={{ position: "relative" }}
+                >
+                  <Button type="submit" color="secondary" variant="contained">
+                    Update{" "}
+                    {isSubmitting && (
+                      <>
+                        &nbsp; &nbsp;
+                        <CircularProgress size={13} />
+                      </>
+                    )}
+                  </Button>
+                </Box>
+              </form>
+            )}
           </Formik>
         </DialogContent>
       </BootstrapDialog>

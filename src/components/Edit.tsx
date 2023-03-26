@@ -1,6 +1,6 @@
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, CircularProgress, TextField } from "@mui/material";
-import DialogActions from "@mui/material/DialogActions";
+
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
@@ -55,12 +55,11 @@ function Edit({
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   // STATE
-  const [loading, setLoading] = React.useState<boolean>(false);
+
   const { userEdit } = useEditUser(userObj?.id);
 
   // SUBMIT FORM VALUES
   const handleFormSubmit = async (values: any) => {
-    setLoading(true);
     const payload: userEditPayload = {
       name: values.name,
       address: values.address,
@@ -70,15 +69,12 @@ function Edit({
     try {
       const response = await userEdit.mutateAsync(payload);
       if (response.status === 200) {
-        setLoading(false);
         handleClose();
         refetch();
       }
     } catch (error) {
-      setLoading(false);
       return error;
     }
-    setLoading(false);
   };
   const initialValues = {
     name: userObj?.name,
@@ -120,6 +116,7 @@ function Edit({
               handleBlur,
               handleChange,
               handleSubmit,
+              isSubmitting,
             }) => {
               return (
                 <form onSubmit={handleSubmit}>
@@ -167,29 +164,22 @@ function Edit({
                     name="phoneNumber"
                     sx={{ mb: "10px" }}
                   />
-                  <DialogActions>
-                    <Box sx={{ position: "relative" }}>
-                      <Button
-                        sx={{ backgroundColor: colors.greenAccent[700] }}
-                        type="submit"
-                      >
-                        Save changes
-                      </Button>
-                      {loading && (
-                        <CircularProgress
-                          size={24}
-                          sx={{
-                            color: colors.blueAccent[700],
-                            position: "absolute",
-                            top: "50%",
-                            left: "50%",
-                            marginTop: "-12px",
-                            marginLeft: "-12px",
-                          }}
-                        />
+                  <Box
+                    display="flex"
+                    justifyContent="end"
+                    mt="20px"
+                    sx={{ position: "relative" }}
+                  >
+                    <Button type="submit" color="secondary" variant="contained">
+                      Update{" "}
+                      {isSubmitting && (
+                        <>
+                          &nbsp; &nbsp;
+                          <CircularProgress size={13} />
+                        </>
                       )}
-                    </Box>
-                  </DialogActions>
+                    </Button>
+                  </Box>
                 </form>
               );
             }}

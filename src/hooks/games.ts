@@ -101,3 +101,31 @@ export const useAddGame = () => {
   );
   return { gameCreate };
 };
+
+// EDIT USER DATA HOOK
+export const useEditGame = (id: any) => {
+  const gameEdit = useMutation(
+    (gameData: addGamePayload) => {
+      return instance({
+        url: `games/${id}`,
+        method: "PUT",
+        data: gameData,
+      });
+    },
+    {
+      onSuccess: (data) => {
+        toast.success(`${data?.data?.name} edited successfully`, {
+          theme: "colored",
+          type: "success",
+        });
+      },
+      onError: (error: any) => {
+        toast.error(`An error occured while updating this user`, {
+          theme: "colored",
+          type: "error",
+        });
+      },
+    }
+  );
+  return { gameEdit };
+};
