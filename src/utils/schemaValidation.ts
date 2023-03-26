@@ -25,6 +25,6 @@ export const userSchema = yup.object().shape({
 export const gameSchema = yup.object().shape({
   name: yup.string().required("Required"),
   gameCategory: yup.string().required("Required"),
-  scores: yup.string().required("Required"),
-  duration: yup.string().required("Required"),
+  scores: yup.number().required("Required"),
+  duration: yup.number().required("Required"),
 });

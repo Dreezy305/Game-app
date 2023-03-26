@@ -102,7 +102,7 @@ function AddGame(): JSX.Element {
               <TextField
                 fullWidth
                 variant="filled"
-                type="text"
+                type="number"
                 label="Duration"
                 onBlur={handleBlur}
                 onChange={handleChange}
@@ -115,7 +115,7 @@ function AddGame(): JSX.Element {
               <TextField
                 fullWidth
                 variant="filled"
-                type="text"
+                type="number"
                 label="Scores"
                 onBlur={handleBlur}
                 onChange={handleChange}

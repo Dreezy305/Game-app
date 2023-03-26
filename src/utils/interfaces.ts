@@ -39,7 +39,7 @@ export interface GameInterface {
   name: string;
   gameCategory: string;
   uniqueId: string;
-  scores: string;
+  scores: any;
   ratings: string;
   reviews: string;
   id: string;
@@ -84,6 +84,6 @@ export interface addUserPayload {
 export interface addGamePayload {
   name: string;
   gameCategory: string;
-  duration: string;
-  scores: string;
+  duration: number;
+  scores: number;
 }
