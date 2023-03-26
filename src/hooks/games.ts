@@ -13,10 +13,15 @@ export const fetchGames = async (query: string) => {
   }
 };
 
+// FETCH SINGLE GAME DATA
+export const fetchGame = async (id: string) => {
+  return await instance({ url: `/games/${id}`, method: "GET" });
+};
+
 // FETCH USER DATA HOOK
 export const useFetchGamesData = (query: string) => {
   const { data, isLoading, isError, refetch, isFetching } = useQuery(
-    ["users", query],
+    ["games", query],
     () => fetchGames(query),
     {
       onSuccess: (data) => {},
@@ -24,6 +29,19 @@ export const useFetchGamesData = (query: string) => {
   );
   const gamesData = data;
   return { gamesData, isLoading, isError, refetch, isFetching };
+};
+
+// FETCH GAME DATA HOOK
+export const useFetchGameData = (id: string) => {
+  const { data, isLoading, isError, refetch, isFetching } = useQuery(
+    ["single-game", id],
+    () => fetchGame(id),
+    {
+      onSuccess: (data) => {},
+    }
+  );
+  const gameData = data;
+  return { gameData, isLoading, isError, refetch, isFetching };
 };
 
 // DELETE GAME DATA HOOK
