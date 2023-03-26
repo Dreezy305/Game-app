@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
@@ -40,7 +39,6 @@ function SingleGame(): JSX.Element {
       if (response.status === 200) {
         setLoading(false);
         navigation("/games");
-        // refetch();
       }
     } catch (error) {
       setLoading(false);
@@ -120,6 +118,46 @@ function SingleGame(): JSX.Element {
               }
             >
               <ListItemText primary={`Name`} />
+            </ListItem>
+            <ListItem
+              key={2}
+              disableGutters
+              secondaryAction={
+                <Typography variant="h6">
+                  {gameData?.data?.gameCategory}
+                </Typography>
+              }
+            >
+              <ListItemText primary={`Game Category`} />
+            </ListItem>
+            <ListItem
+              key={3}
+              disableGutters
+              secondaryAction={
+                <Typography variant="h6">
+                  {dayjs(gameData?.data?.createdAt).format("MM/DD/YYYY")}
+                </Typography>
+              }
+            >
+              <ListItemText primary={`Creation Date`} />
+            </ListItem>
+            <ListItem
+              key={4}
+              disableGutters
+              secondaryAction={
+                <Typography variant="h6">{gameData?.data?.scores}</Typography>
+              }
+            >
+              <ListItemText primary={`Scores`} />
+            </ListItem>
+            <ListItem
+              key={5}
+              disableGutters
+              secondaryAction={
+                <Typography variant="h6">{gameData?.data?.reviews}</Typography>
+              }
+            >
+              <ListItemText primary={`Reviews`} />
             </ListItem>
           </List>
         </CardContent>
