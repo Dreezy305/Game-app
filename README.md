@@ -1,4 +1,4 @@
-# Game APP
+# GAMES APP
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -31,6 +31,12 @@ This is a dashboard application that displays data from REST API. In this app, t
 - LIVE URL is: https://games-app-yolo.netlify.app/
 
 ## USAGE INSTRUCTIONS
+
+## CONTRIBUTING GUIDLINES
+
+- Fork the repository and create a new branch for your changes.
+- Submit a pull request with your changes.
+- Your pull request will be reviewed by a maintainer and merged if it meets the project's standards.
 
 ## CONTACT INFORMATION
 
