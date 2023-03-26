@@ -1,7 +1,7 @@
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 // import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
-import SettingsSuggestOutlinedIcon from "@mui/icons-material/SettingsSuggestOutlined";
+// import SettingsSuggestOutlinedIcon from "@mui/icons-material/SettingsSuggestOutlined";
 import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
 // import SwitchLeftOutlinedIcon from "@mui/icons-material/SwitchLeftOutlined";
 // import SwitchRightOutlinedIcon from "@mui/icons-material/SwitchRightOutlined";
