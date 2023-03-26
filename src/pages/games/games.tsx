@@ -178,6 +178,7 @@ export default function Games(): JSX.Element {
           flexDirection={"row"}
           justifyContent={"space-between"}
           alignItems="baseline"
+          
         >
           {/* FILTERS */}
           <Stack direction={"row"} sx={{ mb: "20px" }}>
@@ -191,10 +192,8 @@ export default function Games(): JSX.Element {
                 label="Select"
               >
                 <MenuItem value="name">Name</MenuItem>
-                <MenuItem value="email">Email</MenuItem>
-                <MenuItem value="phoneNumber">Phone</MenuItem>
-                <MenuItem value="address">Address</MenuItem>
-                <MenuItem value="gender">Gender</MenuItem>
+                <MenuItem value="gameCategory">Game Category</MenuItem>
+                <MenuItem value="scores">Scores</MenuItem>
               </Select>
             </FormControl>
             <FormControl variant="standard">

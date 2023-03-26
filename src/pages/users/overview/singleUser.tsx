@@ -137,7 +137,7 @@ function SingleUser(): JSX.Element {
                   <ListItemText primary={`Gender`} />
                 </ListItem>
                 <ListItem
-                  key={1}
+                  key={2}
                   disableGutters
                   secondaryAction={
                     <Typography variant="h6">
@@ -148,7 +148,7 @@ function SingleUser(): JSX.Element {
                   <ListItemText primary={`Email`} />
                 </ListItem>
                 <ListItem
-                  key={1}
+                  key={3}
                   disableGutters
                   secondaryAction={
                     <Typography variant="h6" textAlign={"start"}>
@@ -159,7 +159,7 @@ function SingleUser(): JSX.Element {
                   <ListItemText primary={`Phone Number`} />
                 </ListItem>
                 <ListItem
-                  key={1}
+                  key={4}
                   disableGutters
                   secondaryAction={
                     <Typography variant="h6" textAlign={"start"}>
@@ -170,7 +170,7 @@ function SingleUser(): JSX.Element {
                   <ListItemText primary={`Address`} />
                 </ListItem>
                 <ListItem
-                  key={1}
+                  key={5}
                   disableGutters
                   secondaryAction={
                     <Typography variant="h6">
@@ -182,7 +182,7 @@ function SingleUser(): JSX.Element {
                   <ListItemText primary={`Account Balance`} />
                 </ListItem>
                 <ListItem
-                  key={1}
+                  key={6}
                   disableGutters
                   secondaryAction={
                     <Typography variant="h6">
@@ -193,7 +193,7 @@ function SingleUser(): JSX.Element {
                   <ListItemText primary={`Number of Games`} />
                 </ListItem>
                 <ListItem
-                  key={1}
+                  key={7}
                   disableGutters
                   secondaryAction={
                     <Typography variant="h6" textAlign={"start"}>

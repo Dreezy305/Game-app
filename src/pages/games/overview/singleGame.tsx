@@ -7,7 +7,6 @@ import {
   Button,
   Card,
   CardContent,
-  CardMedia,
   CircularProgress,
   List,
   ListItem,
@@ -18,7 +17,7 @@ import {
 import dayjs from "dayjs";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDeleteGameData } from "../../../hooks/games";
+import { useDeleteGameData, useFetchGameData } from "../../../hooks/games";
 import { tokens } from "../../../theme";
 
 function SingleGame(): JSX.Element {
@@ -29,6 +28,7 @@ function SingleGame(): JSX.Element {
   const colors = tokens(theme.palette.mode);
 
   const { gameDelete } = useDeleteGameData();
+  const { gameData } = useFetchGameData(params.id);
 
   // STATE
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -102,6 +102,28 @@ function SingleGame(): JSX.Element {
           </Box>
         </Box>
       </Box>
+
+      <Card
+        sx={{
+          minWidth: 275,
+          backgroundColor: colors.blueAccent[700],
+          marginTop: "20px",
+        }}
+      >
+        <CardContent sx={{ pl: 3 }}>
+          <List sx={{ width: "80%" }}>
+            <ListItem
+              key={1}
+              disableGutters
+              secondaryAction={
+                <Typography variant="h6">{gameData?.data?.name}</Typography>
+              }
+            >
+              <ListItemText primary={`Name`} />
+            </ListItem>
+          </List>
+        </CardContent>
+      </Card>
     </Box>
   );
 }
