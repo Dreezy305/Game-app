@@ -32,12 +32,19 @@ This is a dashboard application that displays data from REST API. In this app, t
 
 ## USAGE INSTRUCTIONS
 
-#### Users Page
+#### Users
 
 - The Users page displays user information such as name, email, address, creation date, phone number and image in a table.
 - A user data can be viewed by clicking the "eye" icon under the action column on the table
 - On click of the eye icon navigates to the user page where further info about a particular user can be seen
-- operations like edit, delete and filter can be performed on the pages
+- operations like create, edit, delete and filter can be performed on the pages
+
+#### Games
+
+- The Games page displays user information such as name, game category, creation date, scores, and ratings in a table.
+- A game data can be viewed by clicking the "eye" icon under the action column on the table
+- On click of the eye icon navigates to the game page where further info about a particular game can be seen
+- operations like create, edit, delete and filter can be performed on the pages
 
 ## CONTRIBUTING GUIDLINES
 
