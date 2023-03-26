@@ -25,3 +25,32 @@ export const useFetchGamesData = (query: string) => {
   const gamesData = data;
   return { gamesData, isLoading, isError, refetch, isFetching };
 };
+
+// DELETE GAME DATA HOOK
+export const useDeleteGameData = () => {
+  const gameDelete = useMutation(
+    (id: string) => {
+      return instance({
+        url: `games/${id}`,
+        method: "DELETE",
+        data: id,
+      });
+    },
+    {
+      onSuccess: (data) => {
+        toast.success(`${data?.data?.name} deleted successfully`, {
+          theme: "colored",
+          type: "success",
+        });
+      },
+      onError: (error: any) => {
+        toast.error(`An error occured while deleting this game`, {
+          theme: "colored",
+          type: "error",
+        });
+      },
+    }
+  );
+
+  return { gameDelete };
+};

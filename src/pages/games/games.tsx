@@ -18,14 +18,14 @@ import {
   useTheme,
 } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { styled } from "@mui/material/styles";
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { BootstrapInput } from "../../components/Bootstrap";
+import DialogBox from "../../components/Dialog";
 import Header from "../../components/Header";
-import { useFetchGamesData } from "../../hooks/games";
+import { useDeleteGameData, useFetchGamesData } from "../../hooks/games";
 import { tokens } from "../../theme";
 import { GameInterface } from "../../utils/interfaces";
 
@@ -46,7 +46,8 @@ export default function Games(): JSX.Element {
   const [title, setTitle] = React.useState<string>("");
   const [userName, setUserName] = React.useState<string>("");
 
-  const { gamesData, isLoading, isError } = useFetchGamesData(query);
+  const { gamesData, isLoading, isError, refetch } = useFetchGamesData(query);
+  const { gameDelete } = useDeleteGameData();
   const data: GameInterface[] = gamesData?.data;
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -66,6 +67,21 @@ export default function Games(): JSX.Element {
   const handleClose = () => {
     setOpen(false);
     setIsModal(false);
+  };
+
+  const deleteGame = async (id: string) => {
+    try {
+      setLoading(true);
+      const response = await gameDelete.mutateAsync(id);
+      if (response.status === 200) {
+        setLoading(false);
+        setOpen(false);
+        refetch();
+      }
+    } catch (error) {
+      setLoading(false);
+    }
+    setLoading(false);
   };
 
   // COLUMNS
@@ -139,120 +155,130 @@ export default function Games(): JSX.Element {
   ];
 
   return (
-    <Box m={"20px"}>
-      <Box
-        display={"flex"}
-        justifyContent="space-between"
-        alignItems={"center"}
-      >
-        <Header title="Games" subtitle="Table below displays games data" />
-      </Box>
+    <>
+      <DialogBox
+        open={open}
+        handleClose={handleClose}
+        title={title}
+        userName={userName}
+        handleDelete={() => deleteGame(id)}
+        loading={loading}
+      />
+      <Box m={"20px"}>
+        <Box
+          display={"flex"}
+          justifyContent="space-between"
+          alignItems={"center"}
+        >
+          <Header title="Games" subtitle="Table below displays games data" />
+        </Box>
 
-      <Box
-        display={"flex"}
-        flexDirection={"row"}
-        justifyContent={"space-between"}
-        alignItems="baseline"
-      >
-        {/* FILTERS */}
-        <Stack direction={"row"} sx={{ mb: "20px" }}>
-          <FormControl variant="standard">
-            <Select
-              labelId="demo-customized-select-label"
-              id="demo-customized-select"
-              value={value}
-              onChange={handleChange}
-              input={<BootstrapInput />}
-              label="Select"
-            >
-              <MenuItem value="name">Name</MenuItem>
-              <MenuItem value="email">Email</MenuItem>
-              <MenuItem value="phoneNumber">Phone</MenuItem>
-              <MenuItem value="address">Address</MenuItem>
-              <MenuItem value="gender">Gender</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl variant="standard">
-            <BootstrapInput
-              id="demo-customized-textbox"
-              placeholder="Search..."
-              value={text}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                setText(event.target.value);
-                setQuery(`?${value}=${event.target.value}`);
-              }}
-            />
-          </FormControl>
-        </Stack>
+        <Box
+          display={"flex"}
+          flexDirection={"row"}
+          justifyContent={"space-between"}
+          alignItems="baseline"
+        >
+          {/* FILTERS */}
+          <Stack direction={"row"} sx={{ mb: "20px" }}>
+            <FormControl variant="standard">
+              <Select
+                labelId="demo-customized-select-label"
+                id="demo-customized-select"
+                value={value}
+                onChange={handleChange}
+                input={<BootstrapInput />}
+                label="Select"
+              >
+                <MenuItem value="name">Name</MenuItem>
+                <MenuItem value="email">Email</MenuItem>
+                <MenuItem value="phoneNumber">Phone</MenuItem>
+                <MenuItem value="address">Address</MenuItem>
+                <MenuItem value="gender">Gender</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl variant="standard">
+              <BootstrapInput
+                id="demo-customized-textbox"
+                placeholder="Search..."
+                value={text}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setText(event.target.value);
+                  setQuery(`?${value}=${event.target.value}`);
+                }}
+              />
+            </FormControl>
+          </Stack>
 
-        {/* ACTIONS */}
-        <Stack direction={"row"}>
-          <Box mr={1}>
-            <Button
-              variant="contained"
-              startIcon={<DownloadOutlinedIcon />}
-              onClick={() => {}}
-              color="secondary"
-            >
-              Download CSV
-            </Button>
-          </Box>
-          <Box>
-            <Button
-              variant="outlined"
-              startIcon={<PersonAddAlt1OutlinedIcon />}
-              onClick={() => {
-                navigate("/add-new-game");
-              }}
-              color="success"
-            >
-              Add New Game
-            </Button>
-          </Box>
-        </Stack>
-      </Box>
+          {/* ACTIONS */}
+          <Stack direction={"row"}>
+            <Box mr={1}>
+              <Button
+                variant="contained"
+                startIcon={<DownloadOutlinedIcon />}
+                onClick={() => {}}
+                color="secondary"
+              >
+                Download CSV
+              </Button>
+            </Box>
+            <Box>
+              <Button
+                variant="outlined"
+                startIcon={<PersonAddAlt1OutlinedIcon />}
+                onClick={() => {
+                  navigate("/add-new-game");
+                }}
+                color="success"
+              >
+                Add New Game
+              </Button>
+            </Box>
+          </Stack>
+        </Box>
 
-      <Box
-        sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .name-column--cell": {
-            color: colors.greenAccent[300],
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
-          },
-          "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[200]} !important`,
-          },
-          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-            color: `${colors.grey[100]} !important`,
-          },
-        }}
-        m="8px 0 0 0"
-        height="80vh"
-      >
-        <DataGrid
-          rows={data !== undefined ? data : []}
-          columns={columns}
-          loading={isLoading}
-          checkboxSelection
-          autoPageSize
-          disableRowSelectionOnClick
-        />
+        <Box
+          sx={{
+            "& .MuiDataGrid-root": {
+              border: "none",
+            },
+            "& .MuiDataGrid-cell": {
+              borderBottom: "none",
+            },
+            "& .name-column--cell": {
+              color: colors.greenAccent[300],
+            },
+            "& .MuiDataGrid-columnHeaders": {
+              backgroundColor: colors.blueAccent[700],
+              borderBottom: "none",
+            },
+            "& .MuiDataGrid-virtualScroller": {
+              backgroundColor: colors.primary[400],
+            },
+            "& .MuiDataGrid-footerContainer": {
+              borderTop: "none",
+              backgroundColor: colors.blueAccent[700],
+            },
+            "& .MuiCheckbox-root": {
+              color: `${colors.greenAccent[200]} !important`,
+            },
+            "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+              color: `${colors.grey[100]} !important`,
+            },
+          }}
+          m="8px 0 0 0"
+          height="80vh"
+        >
+          <DataGrid
+            rows={data !== undefined ? data : []}
+            columns={columns}
+            loading={isLoading}
+            checkboxSelection
+            autoPageSize
+            disableRowSelectionOnClick
+          />
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 }
