@@ -29,7 +29,11 @@ function App() {
                 <Suspense
                   fallback={
                     <div className="absoluteCenterY">
-                      <CircularProgress />
+                      <CircularProgress
+                        size={40}
+                        thickness={5}
+                        color="success"
+                      />
                     </div>
                   }
                 >
