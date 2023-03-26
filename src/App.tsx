@@ -1,6 +1,6 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 // import Home from "./pages/dashboard/dashboard";
 import { ToastContainer } from "react-toastify";
 import Games from "./pages/games/games";
@@ -26,7 +26,10 @@ function App() {
               <main>
                 <Topbar />
                 <Routes>
-                  <Route path="/" element={<Users />} />
+                  <Route
+                    path="/"
+                    element={<Navigate to={"/users"} replace={true} />}
+                  />
                   <Route path="/users" element={<Users />} />
                   <Route path="/games" element={<Games />} />
                   <Route path="/users/:id" element={<SingleUser />} />

@@ -22,6 +22,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { BootstrapInput } from "../../components/Bootstrap";
 import DialogBox from "../../components/Dialog";
+import EditGame from "../../components/EditGame";
 import Header from "../../components/Header";
 import { useDeleteGameData, useFetchGamesData } from "../../hooks/games";
 import { tokens } from "../../theme";
@@ -161,6 +162,14 @@ export default function Games(): JSX.Element {
         userName={userName}
         handleDelete={() => deleteGame(id)}
         loading={loading}
+      />
+      <EditGame
+        open={isModal}
+        handleClose={handleClose}
+        loading={loading}
+        title={title}
+        userObj={userObj}
+        refetch={refetch}
       />
       <Box m={"20px"}>
         <Box
