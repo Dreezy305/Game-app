@@ -1,3 +1,4 @@
+import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import {
   Box,
   Button,
@@ -5,7 +6,6 @@ import {
   TextField,
   useMediaQuery,
 } from "@mui/material";
-
 import { Formik } from "formik";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -48,6 +48,17 @@ function AddGame(): JSX.Element {
         alignItems={"center"}
       >
         <Header title="ADD GAME" subtitle="Add a New Game" />
+
+        <Button
+          variant="outlined"
+          startIcon={<ArrowBackOutlinedIcon />}
+          onClick={() => {
+            navigate("/games");
+          }}
+          color="success"
+        >
+          Go back
+        </Button>
       </Box>
 
       <Formik

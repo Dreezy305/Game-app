@@ -1,3 +1,4 @@
+import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import {
   Box,
   Button,
@@ -54,6 +55,16 @@ function AddUser(): JSX.Element {
         alignItems={"center"}
       >
         <Header title="ADD USER" subtitle="Add a New User Profile" />
+        <Button
+          variant="outlined"
+          startIcon={<ArrowBackOutlinedIcon />}
+          onClick={() => {
+            navigate("/users");
+          }}
+          color="success"
+        >
+          Go back
+        </Button>
       </Box>
 
       <Formik

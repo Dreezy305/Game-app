@@ -1,5 +1,5 @@
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+// import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import SettingsSuggestOutlinedIcon from "@mui/icons-material/SettingsSuggestOutlined";
 import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
@@ -144,20 +144,20 @@ function MaterialSideBar(): JSX.Element {
           )}
           {/* SIDE BAR MENUS */}
           <Box paddingLeft={collapsed ? undefined : "10%"}>
-            <Item
+            {/* <Item
               title="Dashboard"
               to="/"
               icon={<HomeOutlinedIcon />}
               selected={select}
               setSelected={setSelect}
-            />
-            <Typography
+            /> */}
+            {/* <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 20px 5px 20px" }}
             >
               Data
-            </Typography>
+            </Typography> */}
             <Item
               title="Users"
               to="/users"
