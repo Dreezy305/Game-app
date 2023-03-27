@@ -26,12 +26,15 @@ import EditGame from "../../components/EditGame";
 import Header from "../../components/Header";
 import { useDeleteGameData, useFetchGamesData } from "../../hooks/games";
 import { tokens } from "../../theme";
+import { ExcelFileDownload } from "../../utils/excel";
 import { GameInterface } from "../../utils/interfaces";
 
 export default function Games(): JSX.Element {
   // GET APP THEME
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  // EXCEL FILE DOWNLOAD CLASS INSTANCE
+  const ExcelFile = new ExcelFileDownload();
 
   const navigate: any = useNavigate();
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -66,6 +69,13 @@ export default function Games(): JSX.Element {
   const handleClose = () => {
     setOpen(false);
     setIsModal(false);
+  };
+
+  const handleFileDownload = () => {
+    const fileName: string = "games_data.xlsx";
+    const fileType: string = "games";
+    const jsonData = gamesData?.data;
+    ExcelFile.generatsGamesCsv(fileName, jsonData, fileType);
   };
 
   const deleteGame = async (id: string) => {
@@ -221,7 +231,9 @@ export default function Games(): JSX.Element {
               <Button
                 variant="contained"
                 startIcon={<DownloadOutlinedIcon />}
-                onClick={() => {}}
+                onClick={() => {
+                  handleFileDownload();
+                }}
                 color="secondary"
               >
                 Download CSV
