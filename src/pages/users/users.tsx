@@ -26,6 +26,7 @@ import Edit from "../../components/Edit";
 import Header from "../../components/Header";
 import { useDeleteUserData, useFetchUsersData } from "../../hooks/users";
 import { tokens } from "../../theme";
+import { ExcelFileDownload } from "../../utils/excel";
 import { userInterface } from "../../utils/interfaces";
 
 export default function Users(): JSX.Element {
@@ -34,6 +35,8 @@ export default function Users(): JSX.Element {
   const colors = tokens(theme.palette.mode);
   // NAVIGATION
   const navigate = useNavigate();
+  // EXCEL FILE DOWNLOAD CLASS
+  const ExcelFile = new ExcelFileDownload();
 
   // STATES
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -86,6 +89,13 @@ export default function Users(): JSX.Element {
   const handleClose = () => {
     setOpen(false);
     setIsModal(false);
+  };
+
+  const handleFileDownload = () => {
+    const fileName: string = "users_data.xlsx";
+    const fileType: string = "users";
+    const jsonData = usersData?.data;
+    ExcelFile.generatsUserCsv(fileName, jsonData, fileType);
   };
 
   // COLUMNS
@@ -235,7 +245,9 @@ export default function Users(): JSX.Element {
               <Button
                 variant="contained"
                 startIcon={<DownloadOutlinedIcon />}
-                onClick={() => {}}
+                onClick={() => {
+                  handleFileDownload();
+                }}
                 color="secondary"
               >
                 Download CSV
