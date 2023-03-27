@@ -2,9 +2,10 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 // import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 // import SettingsSuggestOutlinedIcon from "@mui/icons-material/SettingsSuggestOutlined";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
-// import SwitchLeftOutlinedIcon from "@mui/icons-material/SwitchLeftOutlined";
-// import SwitchRightOutlinedIcon from "@mui/icons-material/SwitchRightOutlined";
+import SwitchLeftOutlinedIcon from "@mui/icons-material/SwitchLeftOutlined";
+import SwitchRightOutlinedIcon from "@mui/icons-material/SwitchRightOutlined";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import React, { useState } from "react";
 import { Menu, MenuItem, Sidebar, useProSidebar } from "react-pro-sidebar";
@@ -12,7 +13,7 @@ import { Link } from "react-router-dom";
 import Profile from "../../../assets/profile.jpeg";
 import { tokens } from "../../../theme";
 import { itemProps } from "../../../utils/interfaces";
-// import { useSidebarContext } from "./SidebarContext";
+import { useSidebarContext } from "./SidebarContext";
 
 const Item = ({ title, to, icon, selected, setSelected }: itemProps) => {
   const theme = useTheme();
@@ -34,7 +35,7 @@ function MaterialSideBar(): JSX.Element {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [select, setSelect] = useState("Users");
-  // const { sidebarRTL, setSidebarRTL, sidebarImage } = useSidebarContext();
+  const { sidebarRTL, setSidebarRTL, sidebarImage } = useSidebarContext();
   const { collapseSidebar, toggleSidebar, collapsed, broken } = useProSidebar();
   return (
     <Box
@@ -71,13 +72,27 @@ function MaterialSideBar(): JSX.Element {
     >
       <Sidebar
         breakPoint="md"
-        // rtl={sidebarRTL}
+        rtl={sidebarRTL}
         backgroundColor={colors.primary[400]}
-        // image={sidebarImage}
+        image={sidebarImage}
       >
         <Menu>
           {/* SIDEBAR TOGGLE AND COLLAPSE */}
+
           <MenuItem
+            icon={
+              collapsed ? (
+                <MenuOutlinedIcon onClick={() => collapseSidebar()} />
+              ) : sidebarRTL ? (
+                <SwitchLeftOutlinedIcon
+                  onClick={() => setSidebarRTL(!sidebarRTL)}
+                />
+              ) : (
+                <SwitchRightOutlinedIcon
+                  onClick={() => setSidebarRTL(!sidebarRTL)}
+                />
+              )
+            }
             style={{
               margin: "10px 0 20px 0",
               color: colors.grey[100],
@@ -94,13 +109,9 @@ function MaterialSideBar(): JSX.Element {
                   GAME
                 </Typography>
                 <IconButton
-                  onClick={() => {
-                    if (broken) {
-                      toggleSidebar();
-                    } else {
-                      collapseSidebar();
-                    }
-                  }}
+                  onClick={
+                    broken ? () => toggleSidebar() : () => collapseSidebar()
+                  }
                 >
                   <CloseOutlinedIcon />
                 </IconButton>
