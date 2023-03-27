@@ -73,9 +73,8 @@ export default function Games(): JSX.Element {
 
   const handleFileDownload = () => {
     const fileName: string = "games_data.xlsx";
-    const fileType: string = "games";
     const jsonData = gamesData?.data;
-    ExcelFile.generatsGamesCsv(fileName, jsonData, fileType);
+    ExcelFile.generatsGamesCsv(fileName, jsonData);
   };
 
   const deleteGame = async (id: string) => {

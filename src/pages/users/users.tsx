@@ -93,9 +93,8 @@ export default function Users(): JSX.Element {
 
   const handleFileDownload = () => {
     const fileName: string = "users_data.xlsx";
-    const fileType: string = "users";
     const jsonData = usersData?.data;
-    ExcelFile.generatsUserCsv(fileName, jsonData, fileType);
+    ExcelFile.generatsUserCsv(fileName, jsonData);
   };
 
   // COLUMNS

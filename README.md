@@ -12,6 +12,7 @@ This is a dashboard application that displays data from REST API. In this app, t
 - React-Query
 - Formik
 - Dayjs
+- XLSX (Sheetjs)
 
 ## INSTALLATION
 

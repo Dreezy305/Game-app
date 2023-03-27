@@ -3,7 +3,7 @@ import * as XLSX from "xlsx";
 
 export class ExcelFileDownload {
   // USERS
-  generatsUserCsv(fileName: string, jsonData: any, fileType: string): void {
+  generatsUserCsv(fileName: string, jsonData: any): void {
     const collectKeys: string[] = [
       "Name",
       "Gender",
@@ -43,7 +43,7 @@ export class ExcelFileDownload {
   }
 
   // GENERATE GAMES
-  generatsGamesCsv(fileName: string, jsonData: any, fileType: string): void {
+  generatsGamesCsv(fileName: string, jsonData: any): void {
     const collectKeys: string[] = [
       "Name",
       "Game Category",
@@ -53,17 +53,6 @@ export class ExcelFileDownload {
       "Duarion",
       "Creation Date",
     ];
-
-    //   {
-    //       "createdAt": "2023-03-25T21:16:34.537Z",
-    //     "name": "necessitatibus",
-    //     "gameCategory": "gold",
-    //     "uniqueId": "f27c973786b3a4a0496fde8b",
-    //     "scores": "2",
-    //     "ratings": "5",
-    //     "reviews": "Soap",
-    //     "duration": "3",
-    //   }
     const data = jsonData?.map((i: any) => {
       const format = dayjs(i.createdAt).format("YYYY-MM-DD");
       let payload = new Map();
