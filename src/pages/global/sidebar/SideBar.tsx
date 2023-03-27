@@ -78,6 +78,7 @@ function MaterialSideBar(): JSX.Element {
       >
         <Menu>
           {/* SIDEBAR TOGGLE AND COLLAPSE */}
+
           <MenuItem
             icon={
               collapsed ? (

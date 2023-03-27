@@ -13,6 +13,7 @@ import {
   Stack,
   Tooltip,
   Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
@@ -35,6 +36,8 @@ export default function Games(): JSX.Element {
   const colors = tokens(theme.palette.mode);
   // EXCEL FILE DOWNLOAD CLASS INSTANCE
   const ExcelFile = new ExcelFileDownload();
+
+  // const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const navigate: any = useNavigate();
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -191,7 +194,7 @@ export default function Games(): JSX.Element {
 
         <Box
           display={"flex"}
-          flexDirection={"row"}
+          flexDirection={`row`}
           justifyContent={"space-between"}
           alignItems="baseline"
         >
