@@ -3,7 +3,7 @@ import { ProSidebarProvider } from "react-pro-sidebar";
 import { contextProps } from "../../../utils/interfaces";
 import MaterialSideBar from "./SideBar";
 
-const SidebarContext = createContext({});
+const SidebarContext: any = createContext({});
 
 export const SideBarProvider = ({ children }: contextProps) => {
   const [sidebarRTL, setSidebarRTL] = useState(false);
@@ -36,4 +36,4 @@ export const SideBarProvider = ({ children }: contextProps) => {
   );
 };
 
-export const useSidebarContext = () => useContext(SidebarContext);
+export const useSidebarContext: any = () => useContext(SidebarContext);
