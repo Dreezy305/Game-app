@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import GamesOutlinedIcon from "@mui/icons-material/GamesOutlined";
@@ -8,12 +7,12 @@ import {
   Box,
   Button,
   FormControl,
+  Grid,
   IconButton,
   MenuItem,
   Stack,
   Tooltip,
   Typography,
-  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
@@ -192,69 +191,68 @@ export default function Games(): JSX.Element {
           <Header title="Games" subtitle="Table below displays games data" />
         </Box>
 
-        <Box
-          display={"flex"}
-          flexDirection={`row`}
-          justifyContent={"space-between"}
-          alignItems="baseline"
-        >
+        <Grid container spacing={2} alignItems="baseline">
           {/* FILTERS */}
-          <Stack direction={"row"} sx={{ mb: "20px" }}>
-            <FormControl variant="standard">
-              <Select
-                labelId="demo-customized-select-label"
-                id="demo-customized-select"
-                value={value}
-                onChange={handleChange}
-                input={<BootstrapInput />}
-                label="Select"
-              >
-                <MenuItem value="name">Name</MenuItem>
-                <MenuItem value="gameCategory">Game Category</MenuItem>
-                <MenuItem value="scores">Scores</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl variant="standard">
-              <BootstrapInput
-                id="demo-customized-textbox"
-                placeholder="Search..."
-                value={text}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  setText(event.target.value);
-                  setQuery(`?${value}=${event.target.value}`);
-                }}
-              />
-            </FormControl>
-          </Stack>
+          <Grid item xs={12} sm={6} md={4} lg={6}>
+            <Stack direction={"row"} sx={{ mb: "20px" }}>
+              <FormControl variant="standard">
+                <Select
+                  labelId="demo-customized-select-label"
+                  id="demo-customized-select"
+                  value={value}
+                  onChange={handleChange}
+                  input={<BootstrapInput />}
+                  label="Select"
+                >
+                  <MenuItem value="name">Name</MenuItem>
+                  <MenuItem value="gameCategory">Game Category</MenuItem>
+                  <MenuItem value="scores">Scores</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl variant="standard">
+                <BootstrapInput
+                  id="demo-customized-textbox"
+                  placeholder="Search..."
+                  value={text}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setText(event.target.value);
+                    setQuery(`?${value}=${event.target.value}`);
+                  }}
+                />
+              </FormControl>
+            </Stack>
+          </Grid>
 
           {/* ACTIONS */}
-          <Stack direction={"row"}>
-            <Box mr={1}>
-              <Button
-                variant="contained"
-                startIcon={<DownloadOutlinedIcon />}
-                onClick={() => {
-                  handleFileDownload();
-                }}
-                color="secondary"
-              >
-                Download CSV
-              </Button>
-            </Box>
-            <Box>
-              <Button
-                variant="outlined"
-                startIcon={<GamesOutlinedIcon />}
-                onClick={() => {
-                  navigate("/add-new-game");
-                }}
-                color="success"
-              >
-                Add New Game
-              </Button>
-            </Box>
-          </Stack>
-        </Box>
+          <Grid item xs={12} sm={6} md={4} lg={6}>
+            <Stack direction={"row"} spacing={2}>
+              <Box mr={1}>
+                <Button
+                  variant="contained"
+                  startIcon={<DownloadOutlinedIcon />}
+                  onClick={() => {
+                    handleFileDownload();
+                  }}
+                  color="secondary"
+                >
+                  Download CSV
+                </Button>
+              </Box>
+              <Box>
+                <Button
+                  variant="outlined"
+                  startIcon={<GamesOutlinedIcon />}
+                  onClick={() => {
+                    navigate("/add-new-game");
+                  }}
+                  color="success"
+                >
+                  Add New Game
+                </Button>
+              </Box>
+            </Stack>
+          </Grid>
+        </Grid>
 
         <Box
           sx={{

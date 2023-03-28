@@ -8,6 +8,7 @@ import {
   Box,
   Button,
   FormControl,
+  Grid,
   IconButton,
   MenuItem,
   Stack,
@@ -203,71 +204,71 @@ export default function Users(): JSX.Element {
           <Header title="Users" subtitle="Table below displays users data" />
         </Box>
         {/* TABLE / DATA GRID */}
-        <Box
-          display={"flex"}
-          flexDirection={"row"}
-          justifyContent={"space-between"}
-          alignItems="baseline"
-        >
+        <Grid container spacing={2} alignItems="baseline">
           {/* FILTERS */}
-          <Stack direction={"row"} sx={{ mb: "20px" }}>
-            <FormControl variant="standard">
-              <Select
-                labelId="demo-customized-select-label"
-                id="demo-customized-select"
-                value={value}
-                onChange={handleChange}
-                input={<BootstrapInput />}
-                label="Select"
-              >
-                <MenuItem value="name">Name</MenuItem>
-                <MenuItem value="email">Email</MenuItem>
-                <MenuItem value="phoneNumber">Phone</MenuItem>
-                <MenuItem value="address">Address</MenuItem>
-                <MenuItem value="gender">Gender</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl variant="standard">
-              <BootstrapInput
-                id="demo-customized-textbox"
-                placeholder="Search..."
-                value={text}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  setText(event.target.value);
-                  setQuery(`?${value}=${event.target.value}`);
-                }}
-              />
-            </FormControl>
-          </Stack>
+          <Grid item xs={12} sm={6} md={4} lg={6}>
+            <Stack direction={"row"} sx={{ mb: "20px" }}>
+              <FormControl variant="standard">
+                <Select
+                  labelId="demo-customized-select-label"
+                  id="demo-customized-select"
+                  value={value}
+                  onChange={handleChange}
+                  input={<BootstrapInput />}
+                  label="Select"
+                >
+                  <MenuItem value="name">Name</MenuItem>
+                  <MenuItem value="email">Email</MenuItem>
+                  <MenuItem value="phoneNumber">Phone</MenuItem>
+                  <MenuItem value="address">Address</MenuItem>
+                  <MenuItem value="gender">Gender</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl variant="standard">
+                <BootstrapInput
+                  id="demo-customized-textbox"
+                  placeholder="Search..."
+                  value={text}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setText(event.target.value);
+                    setQuery(`?${value}=${event.target.value}`);
+                  }}
+                />
+              </FormControl>
+            </Stack>
+          </Grid>
 
           {/* ACTIONS */}
-          <Stack direction={"row"}>
-            <Box mr={1}>
-              <Button
-                variant="contained"
-                startIcon={<DownloadOutlinedIcon />}
-                onClick={() => {
-                  handleFileDownload();
-                }}
-                color="secondary"
-              >
-                Download CSV
-              </Button>
-            </Box>
-            <Box>
-              <Button
-                variant="outlined"
-                startIcon={<PersonAddAlt1OutlinedIcon />}
-                onClick={() => {
-                  navigate("/add-new-user");
-                }}
-                color="success"
-              >
-                Add New User
-              </Button>
-            </Box>
-          </Stack>
-        </Box>
+          <Grid item xs={12} sm={6} md={4} lg={6}>
+            <Stack direction={"row"} spacing={2}>
+              <Box mr={1}>
+                <Button
+                  variant="contained"
+                  startIcon={<DownloadOutlinedIcon />}
+                  onClick={() => {
+                    handleFileDownload();
+                  }}
+                  color="secondary"
+                >
+                  Download CSV
+                </Button>
+              </Box>
+
+              <Box>
+                <Button
+                  variant="outlined"
+                  startIcon={<PersonAddAlt1OutlinedIcon />}
+                  onClick={() => {
+                    navigate("/add-new-user");
+                  }}
+                  color="success"
+                >
+                  Add New User
+                </Button>
+              </Box>
+            </Stack>
+          </Grid>
+        </Grid>
 
         <Box
           sx={{
