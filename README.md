@@ -39,6 +39,7 @@ This is a dashboard application that displays data from REST API. In this app, t
 - A user data can be viewed by clicking the "eye" icon under the action column on the table.
 - On click of the eye icon navigates to the user page where further info about a particular user can be seen.
 - operations like create, edit, delete and filter can be performed on the pages.
+- the select comppnent contains a list of options (name, email, gender, address), select an option, type in value in the input field and the data in table will be updated to display the result of the filter
 
 ### Games
 
@@ -46,6 +47,7 @@ This is a dashboard application that displays data from REST API. In this app, t
 - A game data can be viewed by clicking the "eye" icon under the action column on the table
 - On click of the eye icon navigates to the game page where further info about a particular game can be seen
 - operations like create, edit, delete and filter can be performed on the pages
+- the select comppnent contains a list of options (name, game category and scores), select an option, type in value in the input field and the data in table will be updated to display the result of the filter
 
 ## CONTRIBUTING GUIDLINES
 
