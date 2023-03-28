@@ -42,6 +42,7 @@ This is a dashboard application that displays data from REST API. In this app, t
 - the select comppnent contains a list of options (name, email, gender, address), select an option, type in value in the input field and the data in table will be updated to display the result of the filter
 - the pen icon under the actions column pops up a modal, this modal enables a user to edit/update a user data
 - the eye icon, navigates a user to a page where further details of the selected user can be viewed
+- the bin icon deletes a user data
 
 ### Games
 
@@ -52,6 +53,7 @@ This is a dashboard application that displays data from REST API. In this app, t
 - the select comppnent contains a list of options (name, game category and scores), select an option, type in value in the input field and the data in table will be updated to display the result of the filter
 - the pen icon under the actions column pops up a modal, this modal enables a user to edit/update a game data
 - the eye icon, navigates a user to a page where further details of the selected game can be viewed
+- the bin icon deletes a game data
 
 ## CONTRIBUTING GUIDLINES
 
