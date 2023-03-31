@@ -128,6 +128,133 @@ function SingleUser(): JSX.Element {
 
         <Card
           sx={{
+            backgroundColor: colors.blueAccent[700],
+            marginTop: "20px",
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              flexGrow: 1,
+              flexBasis: { xs: "100%", sm: "50%" },
+              justifyContent: "center",
+              alignItems: "center",
+              padding: "10px",
+              textAlign: "center",
+            }}
+          >
+            <CardContent>
+              <Typography component="div" variant="h1">
+                {locationObject.name}
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                color="text.secondary"
+                component="div"
+              ></Typography>
+              <List sx={{ width: "100%" }}>
+                {/* List items go here */}
+                <ListItem
+                  key={1}
+                  disableGutters
+                  secondaryAction={
+                    <Typography variant="h6">
+                      {userData?.data?.gender}
+                    </Typography>
+                  }
+                >
+                  <ListItemText primary={`Gender`} />
+                </ListItem>
+                <ListItem
+                  key={2}
+                  disableGutters
+                  secondaryAction={
+                    <Typography variant="h6">
+                      {locationObject?.email}
+                    </Typography>
+                  }
+                >
+                  <ListItemText primary={`Email`} />
+                </ListItem>
+                <ListItem
+                  key={3}
+                  disableGutters
+                  secondaryAction={
+                    <Typography variant="h6" textAlign={"start"}>
+                      {locationObject?.phoneNumber}
+                    </Typography>
+                  }
+                >
+                  <ListItemText primary={`Phone Number`} />
+                </ListItem>
+                <ListItem
+                  key={4}
+                  disableGutters
+                  secondaryAction={
+                    <Typography variant="h6" textAlign={"start"}>
+                      {locationObject?.address}
+                    </Typography>
+                  }
+                >
+                  <ListItemText primary={`Address`} />
+                </ListItem>
+                <ListItem
+                  key={5}
+                  disableGutters
+                  secondaryAction={
+                    <Typography variant="h6">
+                      {userData?.data?.currency}
+                      {userData?.data?.accountBalance}
+                    </Typography>
+                  }
+                >
+                  <ListItemText primary={`Account Balance`} />
+                </ListItem>
+                <ListItem
+                  key={6}
+                  disableGutters
+                  secondaryAction={
+                    <Typography variant="h6">
+                      {userData?.data?.gamesPlayed}
+                    </Typography>
+                  }
+                >
+                  <ListItemText primary={`Number of Games`} />
+                </ListItem>
+                <ListItem
+                  key={7}
+                  disableGutters
+                  secondaryAction={
+                    <Typography variant="h6" textAlign={"start"}>
+                      {dayjs(locationObject?.createdAt).format("MM/DD/YYYY")}
+                    </Typography>
+                  }
+                >
+                  <ListItemText primary={`Creation Date`} />
+                </ListItem>
+              </List>
+            </CardContent>
+          </Box>
+          <CardMedia
+            component="img"
+            sx={{
+              width: { xs: "100%", sm: "50%" },
+              height: { xs: "auto", sm: "100%" },
+              objectFit: "cover",
+            }}
+            image={locationObject?.avatar}
+            alt="Live from space album cover"
+          />
+        </Card>
+
+        {/* <Card
+          sx={{
             // width: "75%",
             backgroundColor: colors.blueAccent[700],
             marginTop: "20px",
@@ -236,7 +363,7 @@ function SingleUser(): JSX.Element {
             image={locationObject?.avatar}
             alt="Live from space album cover"
           />
-        </Card>
+        </Card> */}
       </Box>
     </React.Fragment>
   );
