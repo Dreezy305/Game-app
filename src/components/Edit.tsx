@@ -4,8 +4,8 @@ import { Box, Button, CircularProgress, TextField } from "@mui/material";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
-import { useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
+import { useTheme } from "@mui/material/styles";
 import { Formik } from "formik";
 import React from "react";
 import { useEditUser } from "../hooks/users";
@@ -111,8 +111,6 @@ function Edit({
           >
             {({
               values,
-              errors,
-              touched,
               handleBlur,
               handleChange,
               handleSubmit,
